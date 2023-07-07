@@ -1,0 +1,54 @@
+
+# hikari.maxium-pool-size?
+## https://jaehun2841.github.io/2020/01/27/2020-01-27-hikaricp-maximum-pool-size-tuning/#Hikari%EB%8B%98-Connection-%ED%95%98%EB%82%98%EB%A7%8C-%EC%A3%BC%EC%84%B8%EC%97%AC
+
+spring:
+  application:
+    name:
+      pickaboo-api
+  data:
+    redis:
+      url: redis://localhost:6379
+  datasource:
+    hikari:
+      maxium-pool-size: 4
+    url: jdbc:mysql://localhost:3306/pickaboo
+    username: mondayus
+    password: testPw1!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql.init.mode: always
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
+  thymeleaf3.decoupled-logic: true
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${KAKAO_OAUTH_CLIENT_ID}
+            client-secret: ${KAKAO_OAUTH_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+            client-authentication-method: POST
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+jwt:
+  secret-key: pickaboo.application.secret_key
+  # 30 days
+  token.expired-time-ms: 2592000000
+
